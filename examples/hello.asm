@@ -1,8 +1,5 @@
-global start
-
-
-section .text
-
+    section .text
+    global  start
 start:
     mov     rax, 0x2000004 ; write
     mov     rdi, 1 ; stdout

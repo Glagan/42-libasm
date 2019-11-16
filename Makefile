@@ -6,16 +6,16 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/15 14:54:43 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/15 16:24:59 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/16 15:40:14 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	fib.asm
+SRCS	=	ft_strlen.asm
 OBJS	=	$(SRCS:.asm=.o)
 
 NA		=	nasm
 NA_FLAGS=	-f macho64
-FLAGS 	=	-macosx_version_min 10.7.0 -lSystem
+FLAGS 	=	-Wall -Werror -Wextra
 NAME	=	libasm
 
 %.o:			%.asm
@@ -27,7 +27,7 @@ start:			$(NAME)
 				./$(NAME)
 
 $(NAME):		$(OBJS)
-				ld $(FLAGS) -o $(NAME) $(OBJS)
+				gcc $(FLAGS) -o $(NAME) main.c $(OBJS)
 
 clean:
 				rm -rf $(OBJS)
