@@ -6,11 +6,11 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/15 14:54:43 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/16 17:23:50 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/16 17:44:01 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	ft_strlen.s ft_strcmp.s ft_strcpy.s ft_write.s
+SRCS	=	ft_strlen.s ft_strcmp.s ft_strcpy.s ft_write.s ft_read.s
 OBJS	=	$(SRCS:.s=.o)
 
 NA		=	nasm
@@ -24,7 +24,7 @@ NAME	=	libasm
 all:			$(NAME)
 
 start:			re
-				./$(NAME)
+				./$(NAME) < Makefile
 
 $(NAME):		$(OBJS)
 				gcc $(FLAGS) -o $(NAME) main.c $(OBJS)

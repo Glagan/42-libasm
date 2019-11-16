@@ -3,7 +3,7 @@
 
 ; delete RDI, RSI, RDX, RAX and all unpreserved registers by _write
 
-_ft_write:										; fd = rdi, buffer = rsi, bytes = rdx
+_ft_write:								; fd = rdi, buffer = rsi, bytes = rdx
 			mov		rax, 0x2000004
 			syscall
 			ret

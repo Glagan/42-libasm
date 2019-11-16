@@ -6,16 +6,18 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/16 17:36:22 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:47:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 
 # define STRLEN(x)		ft_strlen(x), (int)strlen(x)
 # define STRCMP(a, b)	ft_strcmp(a, b), strcmp(a, b)
-# define WRITE(s, x)	printf("^%ld\n", ft_write(0, s, x));
+# define WRITE(s, x)	printf("^%ld\n", ft_write(STDOUT_FILENO, s, x));
+# define READ(b, x)		r = ft_read(STDIN_FILENO, buffer, x); WRITE(buffer, r);
 
 int
 	ft_strlen(char const *str);
@@ -29,12 +31,17 @@ char
 ssize_t
 	ft_write(int fd, void const *buf, size_t nbyte);
 
+ssize_t
+	ft_read(int fd, void *buf, size_t nbyte);
+
 int
 	main(int argc, char **argv)
 {
 	int		i;
+	long	r;
 	char	buffer[100];
 
+	r = 0;
 	i = 0;
 	while (i < 100)
 		buffer[i++] = 0;
@@ -63,6 +70,14 @@ int
 	WRITE("toto", 4)
 	WRITE("totototo", 4)
 	WRITE("toto", 2)
+	printf("-done\n");
+	printf("--read (Makefile)\n");
+	READ(buffer, 50)
+	READ(buffer, 25)
+	READ(buffer, 4)
+	READ(buffer, 26)
+	READ(buffer, 14)
+	READ(buffer, 0)
 	printf("-done\n");
 	return (0);
 }
