@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/16 19:02:50 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/16 20:57:38 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,27 @@ int
 	printf("%d (%d)\n", ft_list_size(NULL), 0);
 	printf("%d (%d)\n", ft_list_size(&list_last), 1);
 	printf("-done\n");
-	free(list.data);
 	free(list_next.data);
+	free(list_last.data);
+
+	printf("--ft_list_push_front\n");
+	t_list	*push_test = &list;
+	ft_list_push_front(&push_test, ft_strdup("toto"));
+	printf("added: `%s` (next: %p)\n", push_test->data, push_test->next);
+	printf("new list size: %d (%d)\n", ft_list_size(push_test), 4);
+	free(list.data);
+	free(push_test->data);
+	free(push_test);
+	push_test = NULL;
+	ft_list_push_front(&push_test, ft_strdup("barbar"));
+	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
+	ft_list_push_front(&push_test, NULL);
+	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
+
+	free(push_test->next->data);
+	free(push_test->data);
+	free(push_test->next);
+	free(push_test);
+	printf("-done\n");
 	return (0);
 }

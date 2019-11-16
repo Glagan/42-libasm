@@ -114,6 +114,12 @@ label:
 	section	.data
 name:
 		db	{byte, byte, ...}	; Strings end with 0 ; 10 is newline
+
+; Data size
+BYTE	8
+WORD	16
+DWORD	32
+QWORD	64
 ```
 ## Debug
 
