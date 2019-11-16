@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/16 17:13:19 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:36:22 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define STRLEN(x)		ft_strlen(x), (int)strlen(x)
 # define STRCMP(a, b)	ft_strcmp(a, b), strcmp(a, b)
+# define WRITE(s, x)	printf("^%ld\n", ft_write(0, s, x));
 
 int
 	ft_strlen(char const *str);
@@ -24,6 +25,9 @@ int
 
 char
 	*ft_strcpy(char *dst, char const *src);
+
+ssize_t
+	ft_write(int fd, void const *buf, size_t nbyte);
 
 int
 	main(int argc, char **argv)
@@ -54,6 +58,11 @@ int
 	printf("dst: `%s` (`toto`)\n", ft_strcpy(buffer, "toto"));
 	printf("dst: `%s` (empty)\n", ft_strcpy(buffer, ""));
 	printf("dst: `%s` (`long message`)\n", ft_strcpy(buffer, "long message"));
+	printf("-done\n");
+	printf("--write\n");
+	WRITE("toto", 4)
+	WRITE("totototo", 4)
+	WRITE("toto", 2)
 	printf("-done\n");
 	return (0);
 }

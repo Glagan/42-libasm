@@ -19,7 +19,7 @@ AX  CX  DX  BX  SP  BP  SI  DI
 R0B R1B R2B R3B R4B R5B R6B R7B R8B R9B R10B R11B R12B R13B R14B R15B
 AL  CL  DL  BL  SPL BPL SIL DIL
 
-; 128-bit
+; 128-bit (used for floating point operations mostly)
 XMM0 ... XMM15
 ```
 
@@ -70,6 +70,7 @@ RAX
 
 ; syscall registers
 mov		rax, CODE	; Then RDI, RSI etc.. for params
+					; Add 0x2000000 to the syscall number
 ```
 
 ## Common
@@ -89,6 +90,7 @@ inc		REG
 dec		-
 and		DEST, REG
 xor		-
+xor		REG, REG	; = mov	REG, 0
 
 ; Dereferenced value
 [REG]
@@ -110,7 +112,8 @@ label:
 
 ; Constants
 	section	.data
-name:	db	{byte, byte, ...}	; Strings end with 0 ; 10 is newline
+name:
+		db	{byte, byte, ...}	; Strings end with 0 ; 10 is newline
 ```
 ## Debug
 
@@ -129,10 +132,9 @@ format:
 ## Ressources
 
 * [syscalls MacOS](https://opensource.apple.com/source/xnu/xnu-1504.3.12/bsd/kern/syscalls.master)
-* [Linux syscalls](http://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/)
+* [Linux syscalls](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/)
 * [Hello, world!](https://gist.github.com/FiloSottile/7125822)
 * [NASM Tutorial](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
 * [AMD64 Cheatsheet](http://web.archive.org/web/20160801075139/www.x86-64.org/documentation/abi.pdf)
 * [ASM Tutorial](https://github.com/0xAX/asm)
 * [Some code](https://www.conradk.com/codebase/2017/06/06/x86-64-assembly-from-scratch/)
-* [Weird Chinese copy](http://www.voidcn.com/article/p-tvlwrlcp-bq.html)

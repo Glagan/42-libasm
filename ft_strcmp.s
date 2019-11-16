@@ -3,7 +3,7 @@
 
 ; delete RDX, RCX, RAX
 
-_ft_strcmp:
+_ft_strcmp:									; s1 = rdi, s2 = rsi
 			xor		rcx, rcx				; i = 0
 			xor		rdx, rdx				; cmp = 0
 			jmp		check
