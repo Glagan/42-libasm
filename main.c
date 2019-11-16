@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/16 18:21:38 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:30:41 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # define WRITE(s, x)	printf("^%ld\n", ft_write(STDOUT_FILENO, s, x));
 # define READ(b, x)		r = ft_read(STDIN_FILENO, buffer, x); WRITE(buffer, r);
 # define DUP(s)			tmp = ft_strdup(s); printf("`%s`\n", tmp); free(tmp); tmp = NULL;
+
+/**
+ * Mandatory
+ **/
 
 int
 	ft_strlen(char const *str);
@@ -38,6 +42,19 @@ ssize_t
 
 char
 	*ft_strdup(char const *s1);
+
+/**
+ * Bonus
+ **/
+
+typedef struct	s_list
+{
+	void			*data;
+	struct s_list	*next;
+}				t_list;
+
+int
+	ft_atoi_base(char const *str, char const *base);
 
 int
 	main(int argc, char **argv)

@@ -1,14 +1,21 @@
 			section	.text
 			global	_ft_strdup
-			extern	_ft_strlen, _ft_strcpy, _malloc
+			extern	_malloc
 
-; delete RDI, RSI, RDX, RCX, RSP, RAX and everything that malloc destroy
+; delete RDX, RCX, RAX and everything that malloc destroy
 
 _ft_strdup:									; rdi = src
 			cmp		rdi, 0
-			jz		error
-			call	_ft_strlen
-			mov		rcx, rax				; length = _ft_strlen(src)
+			jz		error					; src is NULL
+len_start:
+			xor		rcx, rcx				; i = 0
+			jmp		len_compare
+len_increment:
+			inc		rcx						; i++
+len_compare:
+			cmp		BYTE [rdi + rcx], 0		; str[i] == 0
+			jne		len_increment
+malloc_start:
 			inc		rcx						; length++
 			push	rdi						; save src
 			mov		rdi, rcx
@@ -16,11 +23,19 @@ _ft_strdup:									; rdi = src
 			pop		rdi						; restore src
 			cmp		rax, 0
 			jz		error					; malloc return NULL
-			mov		rsi, rdi
-			mov		rdi, rax
-			call	_ft_strcpy
+copy_start:
+			xor		rcx, rcx				; i = 0
+			xor		rdx, rdx				; tmp = 0
+			jmp		copy_copy
+copy_increment:
+			inc		rcx
+copy_copy:
+			mov		dl, BYTE [rdi + rcx]
+			mov		BYTE [rax + rcx], dl
+			cmp		dl, 0
+			jnz		copy_increment
 			jmp		return
 error:
-			mov		rax, 0
+			xor		rax, rax
 return:
 			ret
