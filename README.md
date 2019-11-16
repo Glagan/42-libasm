@@ -139,8 +139,7 @@ format:
 
 * ``ft_atoi_base``: ``int ft_atoi_base(char *str, char *base)``
 	* [Subject](https://cdn.intra.42.fr/pdf/pdf/1763/fr.subject.pdf)
-* ``ft_list_push_front``: ``void ft_list_push_front(t_list **begin_list, void *data)``
-	* [Subject](https://cdn.intra.42.fr/pdf/pdf/6483/fr.subject.pdf)
+* [Piscine List Subject](https://cdn.intra.42.fr/pdf/pdf/6483/fr.subject.pdf)
 
 ## Ressources
 
