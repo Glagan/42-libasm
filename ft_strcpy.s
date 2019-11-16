@@ -1,6 +1,5 @@
 			section	.text
 			global	_ft_strcpy
-			extern	_ft_strlen, _printf
 
 ; delete RDX, RCX, RAX
 

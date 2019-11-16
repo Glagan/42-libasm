@@ -6,11 +6,11 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/15 14:54:43 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/16 17:44:01 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/16 18:00:56 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	ft_strlen.s ft_strcmp.s ft_strcpy.s ft_write.s ft_read.s
+SRCS	=	ft_strlen.s ft_strcmp.s ft_strcpy.s ft_write.s ft_read.s ft_strdup.s
 OBJS	=	$(SRCS:.s=.o)
 
 NA		=	nasm
