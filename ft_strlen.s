@@ -1,8 +1,9 @@
 			section	.text
 			global	_ft_strlen
 
+; delete RAX
+
 _ft_strlen:
-			mov		rsi, rdi
 			xor		rax, rax			; i = 0
 			jmp		compare
 increment:

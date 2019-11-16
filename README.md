@@ -35,10 +35,6 @@ XMM0 ... XMM15
 	dw    'ab'                ; 0x61 0x62 (character constant)
 	dw    'abc'               ; 0x61 0x62 0x63 0x00 (string)
 	dd    0x12345678          ; 0x78 0x56 0x34 0x12
-	dd    1.234567e20         ; floating-point constant
-	dq    0x123456789abcdef0  ; eight byte constant
-	dq    1.234567e20         ; double-precision float
-	dt    1.234567e20         ; extended-precision float
 ```
 
 ## Number affixes
@@ -115,6 +111,19 @@ label:
 ; Constants
 	section	.data
 name:	db	{byte, byte, ...}	; Strings end with 0 ; 10 is newline
+```
+## Debug
+
+```x64
+; Push/Pop registers to save
+debug:
+			mov		rdi, format
+			mov		rsi, REGISTER
+			xor     rax, rax
+			call	_printf
+end_debug:
+format:
+        	db  "FORMAT", 10, 0
 ```
 
 ## Ressources
