@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/16 18:30:41 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/16 19:02:50 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ typedef struct	s_list
 
 int
 	ft_atoi_base(char const *str, char const *base);
+
+void
+	ft_list_push_front(t_list **begin_list, void *data);
+
+int
+	ft_list_size(t_list *begin_list);
 
 int
 	main(int argc, char **argv)
@@ -114,5 +120,23 @@ int
 	DUP("")
 	DUP(NULL)
 	printf("-done\n");
+
+	t_list	list;
+	t_list	list_next;
+	t_list	list_last;
+	list.data = ft_strdup("toto");
+	list.next = &list_next;
+	list_next.data = ft_strdup("bar");
+	list_next.next = &list_last;
+	list_last.data = ft_strdup("monkaS");
+	list_last.next = NULL;
+	printf("--ft_list_size\n");
+	printf("%d (%d)\n", ft_list_size(&list), 3);
+	printf("%d (%d)\n", ft_list_size(&list_next), 2);
+	printf("%d (%d)\n", ft_list_size(NULL), 0);
+	printf("%d (%d)\n", ft_list_size(&list_last), 1);
+	printf("-done\n");
+	free(list.data);
+	free(list_next.data);
 	return (0);
 }
