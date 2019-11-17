@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 20:29:33 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/17 20:46:44 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/17 21:23:14 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int		main(void)
 
 	printf("\n--ft_list_push_front\n");
 	t_list	*push_test = &list;
-	ft_list_push_front(&push_test, ft_strdup("toto"));
+	ft_list_push_front(&push_test, strdup("toto"));
 	printf("added: `%s` (next: %p)\n", push_test->data, push_test->next);
 	printf("new list size: %d (%d)\n", ft_list_size(push_test), 4);
 	free(list.data);
