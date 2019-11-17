@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/15 14:54:43 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/17 18:36:41 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/17 20:47:12 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ NA			=	nasm
 NA_FLAGS	=	-f macho64
 FLAGS 		=	-Wall -Werror -Wextra
 NAME		=	libasm
+BONUS		=	libasm_bonus
 
 %.o:			%.s
 				$(NA) $(NA_FLAGS) $<
@@ -36,14 +37,14 @@ clean:
 				rm -rf $(OBJS) $(BONUS_OBJS)
 
 fclean:			clean
-				rm -rf $(NAME)
+				rm -rf $(NAME) $(BONUS)
 
 re:				fclean $(NAME)
 
-bonus:			$(OBJS) $(BONUS_OBJS)
-				gcc $(FLAGS) -o $(NAME) main.c $(OBJS) $(BONUS_OBJS)
+bonus:			$(BONUS_OBJS)
+				gcc $(FLAGS) -o $(BONUS) main_bonus.c $(BONUS_OBJS)
 
 test_bonus:		fclean bonus
-				./$(NAME) < Makefile
+				./$(BONUS) < Makefile
 
 .PHONY:			clean fclean re start
