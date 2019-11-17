@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/17 20:25:22 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/17 20:28:08 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ char
  * Bonus
  **/
 
+int
+	ft_atoi_base(char const *str, char const *base);
+
 void
 	ft_list_push_front(t_list **begin_list, void *data);
 
@@ -91,57 +94,6 @@ void
 
 void
 	ft_list_sort(t_list **begin_list,int (*cmp)());
-
-int
-	ft_atoi_base(char const *str, char const *base);/*
-{
-	int length;
-	int	i;
-	int	j;
-	int	total;
-	int	negative;
-
-	// Check valid base
-	length = 0;
-	while (base[length])
-	{
-		j = length + 1;
-		while (base[j])
-		{
-			if (base[length] == base[j])
-				return (0);
-			j++;
-		}
-		if (base[length] == '+' || base[length] == '-' || base[length] == ' '
-			|| base[length] == '\t' || base[length] == '\n' || base[length] == '\r'
-			|| base[length] == '\v' || base[length] == '\f')
-			return (0);
-		length++;
-	}
-	if (length <= 1)
-		return (0);
-	// Skip whitespaces
-	total = 0;
-	i = 0;
-	while (str[i] && (str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
-			|| str[i] == '\v' || str[i] == '\f' || str[i] == ' '))
-		i++;
-	// Negative number and skip sign
-	negative = (str[i] == '-') ? -1 : 1;
-	if (str[i] == '+' || negative == -1)
-		i++;
-	// atoi_base
-	while (str[i])
-	{
-		j = 0;
-		while (base[j] && base[j] != str[i])
-			j++;
-		if (j == length)
-			return (total * negative);
-		total = (total * length) + j;
-	}
-	return (total * negative);
-}*/
 
 int
 	main(int argc, char **argv)
