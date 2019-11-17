@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/17 17:24:24 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/17 18:51:58 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,37 @@
 # define WRITE(s, x)	printf("^%ld\n", ft_write(STDOUT_FILENO, s, x));
 # define READ(b, x)		r = ft_read(STDIN_FILENO, buffer, x); WRITE(buffer, r);
 # define DUP(s)			tmp = ft_strdup(s); printf("`%s`\n", tmp); free(tmp); tmp = NULL;
+
+typedef struct	s_list
+{
+	void			*data;
+	struct s_list	*next;
+}				t_list;
+
+void
+	printf_list(t_list *list)
+{
+	while (list)
+	{
+		printf("; %s\n", list->data);
+		list = list->next;
+	}
+}
+
+void
+	ft_lstclear(t_list **list)
+{
+	t_list	*tmp;
+
+	while (*list)
+	{
+		tmp = (*list)->next;
+		if ((*list)->data)
+			free((*list)->data);
+		free(*list);
+		*list = tmp;
+	}
+}
 
 /**
  * Mandatory
@@ -47,12 +78,6 @@ char
  * Bonus
  **/
 
-typedef struct	s_list
-{
-	void			*data;
-	struct s_list	*next;
-}				t_list;
-
 int
 	ft_atoi_base(char const *str, char const *base);
 
@@ -65,6 +90,9 @@ int
 void
 	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
 		void (*free_fct)(void*));
+
+void
+	ft_list_sort(t_list **begin_list,int (*cmp)());
 
 int
 	main(int argc, char **argv)
@@ -160,11 +188,7 @@ int
 	push_test->next = NULL;
 	ft_list_push_front(&push_test, ft_strdup("toto_r"));
 	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
-	free(push_test->next->data);
-	free(push_test->next);
-	free(push_test->data);
-	free(push_test);
-	push_test = NULL;
+	ft_lstclear(&push_test);
 	printf("-done\n");
 
 	printf("--ft_list_remove_if\n");
@@ -181,6 +205,26 @@ int
 	ft_list_remove_if(&push_test, "", &ft_strcmp, &free);
 	ft_list_remove_if(&push_test, NULL, &ft_strcmp, &free);
 	printf("after: %p:%d (%d)\n", push_test, ft_list_size(push_test), 0);
+	ft_lstclear(&push_test);
+	printf("-done\n");
+
+	printf("--ft_list_sort\n");
+	ft_list_push_front(&push_test, ft_strdup("zwxy"));
+	ft_list_push_front(&push_test, ft_strdup("toto"));
+	ft_list_push_front(&push_test, ft_strdup("0123456"));
+	ft_list_push_front(&push_test, ft_strdup("barbar"));
+	ft_list_push_front(&push_test, ft_strdup("lol"));
+	ft_list_push_front(&push_test, ft_strdup("tortor"));
+	ft_list_push_front(&push_test, ft_strdup("mdr"));
+	ft_list_push_front(&push_test, ft_strdup("0547"));
+	ft_list_push_front(&push_test, ft_strdup("000"));
+	ft_list_push_front(&push_test, ft_strdup("zzz"));
+	printf("before:\n");
+	printf_list(push_test);
+	ft_list_sort(&push_test, &ft_strcmp);
+	printf("after:\n");
+	printf_list(push_test);
+	ft_lstclear(&push_test);
 	printf("-done\n");
 	return (0);
 }
