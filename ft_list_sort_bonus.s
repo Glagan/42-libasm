@@ -49,6 +49,6 @@ swap:
 			jmp		increment_single
 return:
 			mov		[rdi], r12			; *begin = first
-			pop		r12					; restore rbx
+			pop		r12					; restore r12
 			pop		rbx					; restore rbx
 			ret

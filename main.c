@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/17 18:51:58 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/17 20:25:22 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 #include <string.h>
 #include <stdio.h>
 
-# define STRLEN(x)		ft_strlen(x), (int)strlen(x)
-# define STRCMP(a, b)	ft_strcmp(a, b), strcmp(a, b)
-# define WRITE(s, x)	printf("^%ld\n", ft_write(STDOUT_FILENO, s, x));
-# define READ(b, x)		r = ft_read(STDIN_FILENO, buffer, x); WRITE(buffer, r);
-# define DUP(s)			tmp = ft_strdup(s); printf("`%s`\n", tmp); free(tmp); tmp = NULL;
+# define STRLEN(x)			ft_strlen(x), (int)strlen(x)
+# define STRCMP(a, b)		ft_strcmp(a, b), strcmp(a, b)
+# define WRITE(s, x)		printf("^%ld\n", ft_write(STDOUT_FILENO, s, x));
+# define READ(b, x)			r = ft_read(STDIN_FILENO, buffer, x); WRITE(buffer, r);
+# define DUP(s)				tmp = ft_strdup(s); printf("`%s`\n", tmp); free(tmp); tmp = NULL;
+# define ATOI_BASE(s, b)	i = ft_atoi_base(s, b); printf("`%s`[%s] = %d\n", s, b, i);
 
 typedef struct	s_list
 {
@@ -78,9 +79,6 @@ char
  * Bonus
  **/
 
-int
-	ft_atoi_base(char const *str, char const *base);
-
 void
 	ft_list_push_front(t_list **begin_list, void *data);
 
@@ -93,6 +91,57 @@ void
 
 void
 	ft_list_sort(t_list **begin_list,int (*cmp)());
+
+int
+	ft_atoi_base(char const *str, char const *base);/*
+{
+	int length;
+	int	i;
+	int	j;
+	int	total;
+	int	negative;
+
+	// Check valid base
+	length = 0;
+	while (base[length])
+	{
+		j = length + 1;
+		while (base[j])
+		{
+			if (base[length] == base[j])
+				return (0);
+			j++;
+		}
+		if (base[length] == '+' || base[length] == '-' || base[length] == ' '
+			|| base[length] == '\t' || base[length] == '\n' || base[length] == '\r'
+			|| base[length] == '\v' || base[length] == '\f')
+			return (0);
+		length++;
+	}
+	if (length <= 1)
+		return (0);
+	// Skip whitespaces
+	total = 0;
+	i = 0;
+	while (str[i] && (str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == '\f' || str[i] == ' '))
+		i++;
+	// Negative number and skip sign
+	negative = (str[i] == '-') ? -1 : 1;
+	if (str[i] == '+' || negative == -1)
+		i++;
+	// atoi_base
+	while (str[i])
+	{
+		j = 0;
+		while (base[j] && base[j] != str[i])
+			j++;
+		if (j == length)
+			return (total * negative);
+		total = (total * length) + j;
+	}
+	return (total * negative);
+}*/
 
 int
 	main(int argc, char **argv)
@@ -117,25 +166,25 @@ int
 	printf("%d (%d)\n", STRLEN("totototo"));
 	printf("%d (%d)\n", STRLEN("0123456789abcdef"));
 	printf("-done\n");
-	printf("--strcmp\n");
+	printf("\n--strcmp\n");
 	printf("%d (%d)\n", STRCMP("", ""));
 	printf("%d (%d)\n", STRCMP("toto", "toto"));
 	printf("%d (%d)\n", STRCMP("", "toto"));
 	printf("%d (%d)\n", STRCMP("toto", ""));
 	printf("%d (%d)\n", STRCMP("toto", "totobar"));
 	printf("-done\n");
-	printf("--strcpy\n");
+	printf("\n--strcpy\n");
 	printf("`%s` (`toto`)\n", ft_strcpy(buffer, "toto"));
 	printf("`%s` (empty)\n", ft_strcpy(buffer, ""));
 	printf("`%s` (`long message`)\n", ft_strcpy(buffer, "long message"));
 	printf("-done\n");
-	printf("--write\n");
+	printf("\n--write\n");
 	WRITE("toto", 4)
 	WRITE("totototo", 4)
 	WRITE("totototo", 8)
 	WRITE("toto", 2)
 	printf("-done\n");
-	printf("--read (Makefile)\n");
+	printf("\n--read (Makefile)\n");
 	READ(buffer, 50)
 	READ(buffer, 25)
 	READ(buffer, 4)
@@ -162,7 +211,7 @@ int
 	list_next.next = &list_last;
 	list_last.data = ft_strdup("monkaS");
 	list_last.next = NULL;
-	printf("--ft_list_size\n");
+	printf("\n--ft_list_size\n");
 	printf("%d (%d)\n", ft_list_size(&list), 3);
 	printf("%d (%d)\n", ft_list_size(&list_next), 2);
 	printf("%d (%d)\n", ft_list_size(NULL), 0);
@@ -171,7 +220,7 @@ int
 	free(list_next.data);
 	free(list_last.data);
 
-	printf("--ft_list_push_front\n");
+	printf("\n--ft_list_push_front\n");
 	t_list	*push_test = &list;
 	ft_list_push_front(&push_test, ft_strdup("toto"));
 	printf("added: `%s` (next: %p)\n", push_test->data, push_test->next);
@@ -191,7 +240,7 @@ int
 	ft_lstclear(&push_test);
 	printf("-done\n");
 
-	printf("--ft_list_remove_if\n");
+	printf("\n--ft_list_remove_if\n");
 	ft_list_push_front(&push_test, ft_strdup("toto"));
 	ft_list_push_front(&push_test, ft_strdup("barbar"));
 	ft_list_push_front(&push_test, ft_strdup("tortor"));
@@ -208,7 +257,7 @@ int
 	ft_lstclear(&push_test);
 	printf("-done\n");
 
-	printf("--ft_list_sort\n");
+	printf("\n--ft_list_sort\n");
 	ft_list_push_front(&push_test, ft_strdup("zwxy"));
 	ft_list_push_front(&push_test, ft_strdup("toto"));
 	ft_list_push_front(&push_test, ft_strdup("0123456"));
@@ -225,6 +274,37 @@ int
 	printf("after:\n");
 	printf_list(push_test);
 	ft_lstclear(&push_test);
+	printf("-done\n");
+
+	printf("\n--ft_atoi_base\n");
+	ATOI_BASE("42", "0123456789")
+	ATOI_BASE("0", "0123456789")
+	ATOI_BASE("1", "0123456789")
+	ATOI_BASE("1215415478", "0123456789")
+	ATOI_BASE("-0", "0123456789")
+	ATOI_BASE("-1", "0123456789")
+	ATOI_BASE("-42", "0123456789")
+	ATOI_BASE("-1215415478", "0123456789")
+	ATOI_BASE("2147483647", "0123456789")
+	ATOI_BASE("2147483648", "0123456789")
+	ATOI_BASE("-2147483648", "0123456789")
+	ATOI_BASE("-2147483649", "0123456789")
+	ATOI_BASE("2a", "0123456789abcdef")
+	ATOI_BASE("ff", "0123456789abcdef")
+	ATOI_BASE("poney", "poney")
+	ATOI_BASE("dommage", "invalid")
+	ATOI_BASE("dommage", "aussi invalide")
+	ATOI_BASE("dommage", "+toujours")
+	ATOI_BASE("dommage", "-stop")
+	ATOI_BASE("dommage", "  \t\nca suffit")
+	ATOI_BASE("    +42", "0123456789")
+	ATOI_BASE("    -42", "0123456789")
+	ATOI_BASE("    42", "0123456789")
+	ATOI_BASE("  \t\n\r\v\f  42", "0123456789")
+	ATOI_BASE("  \t\n\r\v\f  -42", "0123456789")
+	ATOI_BASE("42FINIS !", "0123456789")
+	ATOI_BASE("-42FINIS !", "0123456789")
+	ATOI_BASE("C'est dommage42", "0123456789")
 	printf("-done\n");
 	return (0);
 }
