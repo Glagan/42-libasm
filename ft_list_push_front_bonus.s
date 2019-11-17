@@ -17,7 +17,7 @@ _ft_list_push_front:				; rdi = t_list **begin, rsi = void *data
 			je		return			; malloc failed
 			mov		[rax], rsi		; new.data = data
 			mov		rcx, [rdi]
-			mov		[rax + 8], rcx		; new.next = *begin
+			mov		[rax + 8], rcx	; new.next = *begin
 			mov		[rdi], rax		; *begin = new
 return:
 			pop		rbx

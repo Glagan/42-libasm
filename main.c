@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/16 20:57:38 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:24:24 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ void
 
 int
 	ft_list_size(t_list *begin_list);
+
+void
+	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
+		void (*free_fct)(void*));
 
 int
 	main(int argc, char **argv)
@@ -152,11 +156,31 @@ int
 	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
 	ft_list_push_front(&push_test, NULL);
 	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
-
-	free(push_test->next->data);
-	free(push_test->data);
 	free(push_test->next);
+	push_test->next = NULL;
+	ft_list_push_front(&push_test, ft_strdup("toto_r"));
+	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
+	free(push_test->next->data);
+	free(push_test->next);
+	free(push_test->data);
 	free(push_test);
+	push_test = NULL;
+	printf("-done\n");
+
+	printf("--ft_list_remove_if\n");
+	ft_list_push_front(&push_test, ft_strdup("toto"));
+	ft_list_push_front(&push_test, ft_strdup("barbar"));
+	ft_list_push_front(&push_test, ft_strdup("tortor"));
+	ft_list_push_front(&push_test, ft_strdup(NULL));
+	printf("before: %p%d (%d)\n", push_test, ft_list_size(push_test), 3);
+	ft_list_remove_if(&push_test, "", &ft_strcmp, &free);
+	printf("nothing: %p%d (%d)\n", push_test, ft_list_size(push_test), 3);
+	ft_list_remove_if(&push_test, "toto", &ft_strcmp, &free);
+	ft_list_remove_if(&push_test, "tortor", &ft_strcmp, &free);
+	ft_list_remove_if(&push_test, "barbar", &ft_strcmp, &free);
+	ft_list_remove_if(&push_test, "", &ft_strcmp, &free);
+	ft_list_remove_if(&push_test, NULL, &ft_strcmp, &free);
+	printf("after: %p:%d (%d)\n", push_test, ft_list_size(push_test), 0);
 	printf("-done\n");
 	return (0);
 }

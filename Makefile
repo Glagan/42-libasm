@@ -6,13 +6,14 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/15 14:54:43 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/16 20:57:50 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/17 16:38:09 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	ft_strlen.s ft_strcmp.s ft_strcpy.s ft_write.s ft_read.s ft_strdup.s
 OBJS		=	$(SRCS:.s=.o)
-BONUS_SRCS	=	ft_atoi_base_bonus.s ft_list_size_bonus.s ft_list_push_front_bonus.s
+BONUS_SRCS	=	ft_atoi_base_bonus.s ft_list_size_bonus.s ft_list_push_front_bonus.s \
+				ft_list_sort_bonus.s ft_list_remove_if_bonus.s
 BONUS_OBJS	=	$(BONUS_SRCS:.s=.o)
 
 NA			=	nasm
@@ -25,7 +26,7 @@ NAME		=	libasm
 
 all:			$(NAME)
 
-start:			re
+test:			re
 				./$(NAME) < Makefile
 
 $(NAME):		$(OBJS)
@@ -42,7 +43,7 @@ re:				fclean $(NAME)
 bonus:			$(OBJS) $(BONUS_OBJS)
 				gcc $(FLAGS) -o $(NAME) main.c $(OBJS) $(BONUS_OBJS)
 
-start_bonus:	fclean bonus
+test_bonus:		fclean bonus
 				./$(NAME) < Makefile
 
 .PHONY:			clean fclean re start

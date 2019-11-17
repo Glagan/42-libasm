@@ -23,39 +23,12 @@ AL  CL  DL  BL  SPL BPL SIL DIL
 XMM0 ... XMM15
 ```
 
-## Constants
-
-```
-	db    0x55                ; just the byte 0x55
-	db    0x55,0x56,0x57      ; three bytes in succession
-	db    'a',0x55            ; character constants are OK
-	db    'hello',13,10,'$'   ; so are string constants
-	dw    0x1234              ; 0x34 0x12
-	dw    'a'                 ; 0x61 0x00 (it's just a number)
-	dw    'ab'                ; 0x61 0x62 (character constant)
-	dw    'abc'               ; 0x61 0x62 0x63 0x00 (string)
-	dd    0x12345678          ; 0x78 0x56 0x34 0x12
-```
-
-## Number affixes
-
-```
-200          ; decimal
-0200         ; still decimal - the leading 0 does not make it octal
-0200d        ; explicitly decimal - d suffix
-0d200        ; also decimal - 0d prefex
-0c8h         ; hex - h suffix, but leading 0 is required because c8h looks like a var
-0xc8         ; hex - the classic 0x prefix
-0hc8         ; hex - for some reason NASM likes 0h
-310q         ; octal - q suffix
-0q310        ; octal - 0q prefix
-11001000b    ; binary - b suffix
-0b1100_1000  ; binary - 0b prefix, and by the way, underscores are allowed
-```
-
 ## Functions
 
 ```
+; Stack pointer
+RSP
+
 ; Parameters registers
 RDI RSI RDX RCX R8 R9
 
@@ -114,6 +87,14 @@ label:
 	section	.data
 name:
 		db	{byte, byte, ...}	; Strings end with 0 ; 10 is newline
+		db	0x55                ; just the byte 0x55
+		db	0x55,0x56,0x57	  	; three bytes in succession
+		db	'a',0x55			; character constants are OK
+		db	'hello',13,10,'$'   ; so are string constants
+		dw	0x1234			  	; 0x34 0x12
+		dw	'a'				 	; 0x61 0x00 (it's just a number)
+		dw	'ab'				; 0x61 0x62 (character constant)
+		dw	'abc'			   	; 0x61 0x62 0x63 0x00 (string)
 
 ; Data size
 BYTE	8
