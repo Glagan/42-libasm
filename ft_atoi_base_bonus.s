@@ -51,17 +51,17 @@ base_check_end:
 skip_whitespaces_inc:
 			inc		r8						; i++
 skip_whitespaces:
-			cmp		BYTE [rdi + r8], 32	; str[i] == ' '
+			cmp		BYTE [rdi + r8], 32		; str[i] == ' '
 			je		skip_whitespaces_inc
 			cmp		BYTE [rdi + r8], 9		; str[i] == '\t'
 			je		skip_whitespaces_inc
-			cmp		BYTE [rdi + r8], 10	; str[i] == '\n'
+			cmp		BYTE [rdi + r8], 10		; str[i] == '\n'
 			je		skip_whitespaces_inc
-			cmp		BYTE [rdi + r8], 13	; str[i] == '\r'
+			cmp		BYTE [rdi + r8], 13		; str[i] == '\r'
 			je		skip_whitespaces_inc
-			cmp		BYTE [rdi + r8], 11	; str[i] == '\v'
+			cmp		BYTE [rdi + r8], 11		; str[i] == '\v'
 			je		skip_whitespaces_inc
-			cmp		BYTE [rdi + r8], 12	; str[i] == '\f'
+			cmp		BYTE [rdi + r8], 12		; str[i] == '\f'
 			je		skip_whitespaces_inc
 			jmp		check_sign
 is_negative:
