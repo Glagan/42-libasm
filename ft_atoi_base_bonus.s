@@ -65,13 +65,14 @@ skip_whitespaces:
 			je		skip_whitespaces_inc
 			jmp		check_sign
 is_negative:
-			inc		rbx
-			jmp		atoi_increment
+			xor		bl, 0x00000001
+is_positive:
+			inc		r8
 check_sign:
 			cmp		BYTE [rdi + r8], 45		; str[i] == '-'
 			je		is_negative
 			cmp		BYTE [rdi + r8], 43		; str[i] == '+'
-			je		atoi_increment
+			je		is_positive
 			jmp		atoi_loop
 atoi_increment:
 			inc		r8						; i++
