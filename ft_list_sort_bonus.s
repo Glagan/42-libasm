@@ -6,9 +6,9 @@
 _ft_list_sort:							; rdi = t_list **begin, rsi = int (*cmp)(d1, d2)
 			push	rbx					; save rbx (next)
 			push	r12					; save r12 (first)
-			mov		r12, [rdi]			; first = *begin
 			cmp		rdi, 0				; begin == NULL
-			jz		return
+			jz		restore
+			mov		r12, [rdi]			; first = *begin
 			cmp		rsi, 0				; cmp == NULL
 			jz		return
 			jmp		compare_main
@@ -49,6 +49,7 @@ swap:
 			jmp		increment_single
 return:
 			mov		[rdi], r12			; *begin = first
+restore:
 			pop		r12					; restore r12
 			pop		rbx					; restore rbx
 			ret

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/17 20:37:05 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/18 12:16:14 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 /*
 ** Useful macros
 */
-# define STRLEN(x)			ft_strlen(x), (int)strlen(x)
-# define STRCMP(a, b)		ft_strcmp(a, b), strcmp(a, b)
-# define WRITE(s, x)		printf("^%ld\n", ft_write(STDOUT_FILENO, s, x));
-# define READ(b, x)			r = ft_read(STDIN_FILENO, buffer, x); WRITE(buffer, r);
-# define DUP(s)				tmp = ft_strdup(s); printf("`%s`\n", tmp); free(tmp); tmp = NULL;
+# define STRLEN(x)			printf("`%s` = %d (%d)\n", x, ft_strlen(x), (int)strlen(x));
+# define STRCMP(a, b)		printf("`%s`:`%s` = %d (%d)\n", a, b, ft_strcmp(a, b), strcmp(a, b));
+# define WRITE(s, x)		printf("^%ld (`%s`:%ld)\n", ft_write(STDOUT_FILENO, s, x), s, x);
+# define READ(b, x)			r = ft_read(STDIN_FILENO, buffer, x); printf("`%s`:%ld\n", buffer, r);
+# define DUP(s)				tmp = ft_strdup(s); printf("`%s` (`%s`)\n", tmp, s); free(tmp); tmp = NULL;
 
 /*
 ** Function prototypes
@@ -56,30 +56,37 @@ int		main(void)
 		buffer[i++] = 0;
 
 	printf("--strlen\n");
-	printf("%d (%d)\n", STRLEN(""));
-	printf("%d (%d)\n", STRLEN("toto"));
-	printf("%d (%d)\n", STRLEN("totototo"));
-	printf("%d (%d)\n", STRLEN("0123456789abcdef"));
+	STRLEN("")
+	STRLEN("toto")
+	STRLEN("totototo")
+	STRLEN("0123456789abcdef")
+	STRLEN("42")
+	STRLEN("1")
 	printf("-done\n");
 
 	printf("\n--strcmp\n");
-	printf("%d (%d)\n", STRCMP("", ""));
-	printf("%d (%d)\n", STRCMP("toto", "toto"));
-	printf("%d (%d)\n", STRCMP("", "toto"));
-	printf("%d (%d)\n", STRCMP("toto", ""));
-	printf("%d (%d)\n", STRCMP("toto", "totobar"));
+	STRCMP("", "")
+	STRCMP("toto", "toto")
+	STRCMP("", "toto")
+	STRCMP("toto", "")
+	STRCMP("toto", "totobar")
+	printf("`%s`:`%s` = %d\n", "TOTO", NULL, ft_strcmp("TOTO", NULL));
+	printf("`%s`:`%s` = %d\n", NULL, "TOTO", ft_strcmp(NULL, "TOTO"));
+	printf("`%s`:`%s` = %d\n", NULL, NULL, ft_strcmp(NULL, NULL));
 	printf("-done\n");
 
 	printf("\n--strcpy\n");
 	printf("`%s` (`toto`)\n", ft_strcpy(buffer, "toto"));
 	printf("`%s` (empty)\n", ft_strcpy(buffer, ""));
 	printf("`%s` (`long message`)\n", ft_strcpy(buffer, "long message"));
+	printf("`%s` (NULL > not modified)\n", ft_strcpy(buffer, NULL));
 	printf("-done\n");
+
 	printf("\n--write\n");
-	WRITE("toto", 4)
-	WRITE("totototo", 4)
-	WRITE("totototo", 8)
-	WRITE("toto", 2)
+	WRITE("toto", 4L)
+	WRITE("totototo", 4L)
+	WRITE("totototo", 8L)
+	WRITE("toto", 2L)
 	printf("-done\n");
 
 	printf("\n--read (Makefile)\n");
@@ -91,7 +98,7 @@ int		main(void)
 	READ(buffer, 0)
 	printf("-done\n");
 
-	printf("--ft_strdup\n");
+	printf("\n--ft_strdup\n");
 	tmp2 = ft_strdup("toto");
 	DUP(tmp2)
 	free(tmp2);

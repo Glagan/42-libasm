@@ -6,7 +6,16 @@
 _ft_strcmp:									; s1 = rdi, s2 = rsi
 			xor		rcx, rcx				; i = 0
 			xor		rdx, rdx				; cmp = 0
+			cmp		rdi, 0					; !s1
+			jz		check_null
+			cmp		rsi, 0					; !s2
+			jz		check_null
 			jmp		check
+check_null:
+			cmp		rdi, rsi
+			jz		equal					; s1 == s2 (NULL)
+			jg		superior				; s1 == NULL
+			jmp		inferior				; s2 == NULL
 compare:
 			mov		dl, BYTE [rsi + rcx]	; tmp = s2[i]
 			cmp		BYTE [rdi + rcx], dl	; s1[i] == tmp

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 20:29:33 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/18 11:58:46 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/18 12:18:39 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,13 @@ int		main(void)
 	free(push_test);
 	push_test = NULL;
 	ft_list_push_front(&push_test, strdup("barbar"));
-	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
+	printf("added: `%s` (s%p : n%p)\n", push_test->data, push_test, push_test->next);
 	ft_list_push_front(&push_test, NULL);
-	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
+	printf("added: `%s` (s%p : n%p)\n", push_test->data, push_test, push_test->next);
 	free(push_test->next);
 	push_test->next = NULL;
 	ft_list_push_front(&push_test, strdup("toto_r"));
-	printf("added: `%s` (%p : %p)\n", push_test->data, push_test, push_test->next);
+	printf("added: `%s` (s%p : n%p)\n", push_test->data, push_test, push_test->next);
 	ft_lstclear(&push_test);
 	printf("-done\n");
 
@@ -190,6 +190,9 @@ int		main(void)
 	printf("after:\n");
 	printf_list(push_test);
 	ft_lstclear(&push_test);
+	printf("sort NULL:\n");
+	ft_list_sort(NULL, &strcmp);
+	ft_list_sort(&push_test, &strcmp);
 	printf("-done\n");
 
 	return (0);
